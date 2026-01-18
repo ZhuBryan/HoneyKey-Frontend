@@ -1,31 +1,30 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from "react-router-dom";
-import { Navbar } from "./components/Navbar";
-import { Dashboard } from "./components/Dashboard";
-import { About } from "./components/About";
-import { EngineerReport } from "./components/EngineerReport";
-import { ReportsInbox } from "./components/ReportsInbox";
+import { useEffect, useState } from "react";
+import { api, type Incident } from "./lib/api";
+
+export default function App() {
+  const [incidents, setIncidents] = useState<Incident[] | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    api.listIncidents()
+      .then(setIncidents)
+      .catch((e) => setError(String(e)));
+  }, []);
+
+  if (error) return <pre>Error: {error}</pre>;
+  if (!incidents) return <div>Loading incidents…</div>;
 
 export default function App() {
   return (
-    <Router>
-      <div className="min-h-screen bg-[#FBEAD2] text-[#023D50] relative">
-        <Navbar />
-        <div className="relative z-10">
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/reports" element={<ReportsInbox />} />
-            <Route
-              path="/report/engineer"
-              element={<EngineerReport />}
-            />
-          </Routes>
-        </div>
-      </div>
-    </Router>
+    <div style={{ padding: 16 }}>
+      <h1>HoneyKey Incidents</h1>
+      <ul>
+        {incidents.map((i) => (
+          <li key={i.id}>
+            #{i.id} {i.source_ip} ({i.event_count} events)
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
