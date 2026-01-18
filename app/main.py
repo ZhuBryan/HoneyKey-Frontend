@@ -28,13 +28,13 @@ class Settings(BaseModel):
 
 
 def load_settings() -> Settings:
-    load_dotenv()
+    load_dotenv(override=True)
     cors_origins = [
         origin.strip()
         for origin in os.getenv("CORS_ORIGINS", "").split(",")
         if origin.strip()
     ]
-    return Settings(
+    settings = Settings(
         database_path=os.getenv("DATABASE_PATH", DEFAULT_DB_PATH),
         honeypot_key=os.getenv("HONEYPOT_KEY", ""),
         incident_window_minutes=int(
@@ -44,6 +44,8 @@ def load_settings() -> Settings:
         gemini_api_key=os.getenv("GEMINI_API_KEY"),
         gemini_model=os.getenv("GEMINI_MODEL", DEFAULT_GEMINI_MODEL),
     )
+    print(f"DEBUG: Loaded Key: {(settings.gemini_api_key or '')[:10]}... Model: {settings.gemini_model}")
+    return settings
 
 
 settings = load_settings()
@@ -494,7 +496,7 @@ async def analyze_incident(incident_id: int, request: Request) -> AIReportRespon
         raise HTTPException(
             status_code=502,
             detail=(
-                "Failed to parse AI report. "
+                f"AI Generation failed: {str(exc)}. "
                 f"correlation_id={correlation_id}"
             ),
         ) from exc
