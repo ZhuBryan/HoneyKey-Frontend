@@ -162,35 +162,11 @@ export function Dashboard() {
               </p>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 bg-[#16A085]/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Zap className="w-5 h-5 text-[#16A085]" />
-                  </div>
-                  <div>
-                    <div className="text-lg font-bold text-[#023D50] mb-1">Real-Time Analysis</div>
-                    <div className="text-sm text-[#456A77]">Processing 847 events/sec</div>
-                  </div>
-                </div>
                 
-                <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 bg-[#E09B3D]/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Activity className="w-5 h-5 text-[#E09B3D]" />
-                  </div>
-                  <div>
-                    <div className="text-lg font-bold text-[#023D50] mb-1">Pattern Detection</div>
-                    <div className="text-sm text-[#456A77]">12 known threat signatures</div>
-                  </div>
-                </div>
                 
-                <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 bg-[#023D50]/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Shield className="w-5 h-5 text-[#023D50]" />
-                  </div>
-                  <div>
-                    <div className="text-lg font-bold text-[#023D50] mb-1">Model Accuracy</div>
-                    <div className="text-sm text-[#456A77]">98.7% detection rate</div>
-                  </div>
-                </div>
+                
+                
+                
               </div>
             </div>
           </div>
