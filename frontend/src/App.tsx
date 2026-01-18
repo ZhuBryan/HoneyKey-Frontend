@@ -2,16 +2,29 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
+  useLocation,
 } from "react-router-dom";
+import { useEffect } from "react";
 import { Navbar } from "./components/Navbar";
 import { Dashboard } from "./components/Dashboard";
 import { About } from "./components/About";
 import { EngineerReport } from "./components/EngineerReport";
 import { ReportsInbox } from "./components/ReportsInbox";
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
 export default function App() {
   return (
     <Router>
+      <ScrollToTop />
       <div className="min-h-screen bg-[#FBEAD2] text-[#023D50] relative">
         <Navbar />
         <div className="relative z-10">
